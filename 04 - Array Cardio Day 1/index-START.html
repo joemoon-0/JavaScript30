@@ -37,17 +37,43 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const bornBefore = inventors.filter(inventor => {
+        if (inventor.year >= 1500 && inventor.year < 1600) return inventor;
+    });
+    console.table(bornBefore);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    const names = inventors.map(name => { return `${name.first} ${name.last}`; });
+    console.table(names);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const sortBirth = inventors.sort((a, b) => {
+        if (a.year < b.year) {
+            return -1;
+        }
+        if (a.year > b.year) {
+            return 1;
+        }
+
+        return 0;   // same year
+    });
+    console.table(sortBirth);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    const totalYears = inventors.reduce((prev, curr) => prev + (curr.passed - curr.year), 0);
+    console.log(totalYears);
 
     // 5. Sort the inventors by years lived
+    const sortLived = inventors.sort((a, b) => {
+        const a_lived = a.passed - a.year;
+        const b_lived = b.passed - b.year;
+
+        return (a_lived < b_lived) ? -1 : 1;
+    });
+    console.table(sortLived);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -55,10 +81,20 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const sortLastName = people.sort((a, b) => {
+        return (a < b) ? -1 : 1;
+    });
+    console.log(sortLastName);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const sumData = data.reduce((obj, veh) => {
+        if (!obj[veh]) {obj[veh] = 0;}
+        obj[veh]++;
+        return obj;
+    }, {});
+    console.log(sumData);
 
   </script>
 </body>
